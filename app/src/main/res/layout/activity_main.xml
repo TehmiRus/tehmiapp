@@ -1,0 +1,109 @@
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..67db3778a1822616999ed273559ea67e464ac46d
+--- /dev/null
++++ b/app/src/main/res/layout/activity_main.xml
+@@ -0,0 +1,103 @@
++<?xml version="1.0" encoding="utf-8"?>
++<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:padding="16dp">
++
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="vertical">
++
++        <TextView
++            android:id="@+id/tvTitle"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:text="Расчёт производительности шнека"
++            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="16dp"
++            android:hint="Диаметр шнека D (м)">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:id="@+id/etDiameter"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:inputType="numberDecimal" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Шаг витка S (м)">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:id="@+id/etPitch"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:inputType="numberDecimal" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Скорость вращения n (об/мин)">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:id="@+id/etRpm"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:inputType="numberDecimal" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Коэффициент заполнения φ (0..1)">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:id="@+id/etFill"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:inputType="numberDecimal" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <com.google.android.material.textfield.TextInputLayout
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:hint="Насыпная плотность ρ (кг/м³)">
++
++            <com.google.android.material.textfield.TextInputEditText
++                android:id="@+id/etDensity"
++                android:layout_width="match_parent"
++                android:layout_height="wrap_content"
++                android:inputType="numberDecimal" />
++        </com.google.android.material.textfield.TextInputLayout>
++
++        <Button
++            android:id="@+id/btnCalculate"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="16dp"
++            android:text="Рассчитать" />
++
++        <TextView
++            android:id="@+id/tvResult"
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="16dp"
++            android:text="Введите параметры и нажмите «Рассчитать»."
++            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
++
++        <TextView
++            android:layout_width="match_parent"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="12dp"
++            android:text="Формулы: Qv = π·D²/4 · S · n/60 · φ; Qm = Qv · ρ"
++            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
++    </LinearLayout>
++</ScrollView>
