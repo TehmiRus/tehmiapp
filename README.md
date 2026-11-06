@@ -27,6 +27,10 @@
 
 ## Установка на телефон
 
+[Скачать готовый APK](https://github.com/TehmiRus/tehmiapp/raw/refs/heads/main/downloads/TehMI-Aspiration-1.0-debug.apk).
+Если GitHub показывает страницу файла, нажмите **Download raw file**.
+Контрольная сумма — `downloads/SHA256SUMS.txt`.
+
 Соберите `app-debug.apk` либо используйте подготовленный APK из результата работы.
 Перенесите на телефон, откройте файл и разрешите установку из выбранного
 источника, если Android запросит. Debug-подпись предназначена для тестирования;
