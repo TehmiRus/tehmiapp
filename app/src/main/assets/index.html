@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><title>ТехМИ — Аспирация</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><div class="brand">Тех<span>МИ</span><small>ИНЖЕНЕРНЫЕ РАСЧЁТЫ</small></div><span class="offline">● Автономно</span></header>
+<main>
+<div class="intro"><p class="eyebrow">АСПИРАЦИЯ / 2.2</p><h1>От расхода<br>к оборудованию</h1><p>Фильтр, воздуховод, вентилятор и пылевой баланс — в одном расчётном инструменте.</p></div>
+<label class="nav-label" for="navigation">Раздел расчёта</label><select id="navigation" class="navigation" aria-label="Раздел расчёта"></select>
+<section id="calculator"><div class="section-heading"><span id="section-number">01</span><div><h2 id="title"></h2><p>Начальные числа — примеры, не рекомендации</p></div></div>
+<details><summary>Формулы и условия применения</summary><p id="explanation"></p></details>
+<form id="form" novalidate><div id="fields"></div><div class="actions"><button type="submit" class="primary">Рассчитать <span>→</span></button><button type="button" id="reset">Сбросить</button></div></form>
+<p id="error" role="alert" hidden></p>
+<section id="result" hidden aria-live="polite"><div class="result-top"><h2>Результат</h2><button id="save" type="button">Сохранить TXT ↓</button></div><div id="metrics"></div><p id="checks"></p><details><summary>Полный отчёт и ограничения</summary><pre id="report"></pre></details></section>
+<p id="status" role="status">Введите исходные данные и выполните расчёт.</p></section>
+<section id="reference" hidden><h2>Литература и модели</h2><pre id="literature"></pre></section>
+<section id="about" hidden><h2>ТехМИ</h2><p>Инженерный калькулятор аспирации. Android 1.0, расчётная модель Filter- 2.2.</p><p>info@tehmi.ru<br>+7 922 7550 7010<br>tehmi.ru</p><p>Предварительные расчёты отдельных узлов. Основания коэффициентов и применимость к производству определяет инженер.</p></section>
+<footer>ТехМИ · Аспирация<br><span>Исходные данные сохраняются на этом устройстве.</span></footer>
+</main><script src="spec.js"></script><script src="engine.js"></script><script src="ui.js"></script></body></html>
