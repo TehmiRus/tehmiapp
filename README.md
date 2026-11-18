@@ -40,67 +40,47 @@
 выбором документа; доступ ко всему хранилищу не запрашивается.
 Данные форм хранятся локально и удаляются при очистке данных приложения.
 
-## Сборка
+## Сборка на Windows
 
-Android Studio: открыть корень проекта, установить SDK Platform 35 и
-Build-Tools 34.0.0 (версия по умолчанию AGP 8.7.3), дождаться Gradle Sync,
-выбрать Build APK или Run на подключённом телефоне.
+Установите Python 3.14 или новее, полный JDK 17 или 21 и Android SDK.
+В Android Studio через SDK Manager установите Android SDK Platform 35,
+Build-Tools 34.0.0 и Platform-Tools. Укажите путь к JDK в `JAVA_HOME`,
+а путь к Android SDK — в `ANDROID_HOME`.
 
-Командная строка: полный JDK 17 или 21, Android SDK 35, Gradle Wrapper 8.9:
+Из корня репозитория в PowerShell:
 
-```sh
-export JAVA_HOME=/path/to/jdk
-export ANDROID_HOME=/path/to/android-sdk
-./gradlew --no-daemon --max-workers=2 :app:assembleDebug :app:lintDebug
+```powershell
+py -3.14 tools/build.py
 ```
 
-Windows: `gradlew.bat :app:assembleDebug :app:lintDebug`.
-Результат: `app/build/outputs/apk/debug/app-debug.apk`.
-Не добавляйте `local.properties`, SDK, ключи или секреты в Git.
+Скрипт запускает Gradle Wrapper 8.9, собирает debug APK и выполняет Android Lint.
+APK появится в `app/build/outputs/apk/debug/app-debug.apk`, отчёт Lint —
+в `app/build/reports/lint-results-debug.html`.
+Gradle и JDK нужны для сборки Android, Python запускает сборку и проверки.
 
-В текущей облачной среде инструменты установлены вне репозитория:
+## Проверки на Windows
 
-```sh
-. /workspace/android-tools/env.sh
-./gradlew --no-daemon --max-workers=2 :app:assembleDebug :app:lintDebug
+Из корня репозитория в PowerShell:
+
+```powershell
+py -3.14 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r tests/requirements.txt
+.\.venv\Scripts\python.exe -m playwright install chromium
+.\.venv\Scripts\python.exe tests/test_app.py
 ```
 
-У Gradle в этой среде настроены прокси и системное доверие CA во внешнем
-`GRADLE_USER_HOME`; на обычном ПК эти настройки не нужны.
-Каждая облачная задача изолирована: используйте существующий checkout,
-не создавайте worktree без отдельного запроса. Изменения настроек среды
-и публикация среды в рамках этой реализации не выполняются.
+Если установлена более новая версия Python, укажите её в команде `py`
+вместо `-3.14`. Для тестов Python поднимает временный HTTP-сервер на
+loopback, запускает Chromium и останавливает сервер после прогона.
+Тесты выполняют JavaScript, который входит в APK. Node.js отдельно
+устанавливать не требуется.
 
-## Проверки
-
-Без установки зависимостей, Node.js 18+:
-
-```sh
-node tests/engine.test.cjs
-```
-
-1161 сценарий с ожидаемыми значениями Python-версии: пыли, граничные
-диаметры, все способы регенерации, случайные геометрии, нормальный/влажный
-расход и ошибки ввода. Fixture `tests/reference-cases.json` получен из
-исходного коммита Python, не из проверяемого JS-ядра. Относительный допуск
-сравнения 1e-10; это проверка переноса, не точность инженерной модели.
-Дополнительно проверены отчёт, активные поля и ввод. При количестве рукавов
-выше точного целого диапазона JavaScript расчёт отклоняется.
-
-UI-тест с Playwright (установите `playwright` и Chromium):
-
-```sh
-python3 -m http.server 8765 --bind 127.0.0.1 --directory app/src/main/assets
-# Во втором терминале:
-node tests/ui.test.cjs
-```
-
-В UI-тесте путь Chromium задаётся `CHROMIUM_PATH` (по умолчанию `/usr/bin/chromium`).
-Проверены пять расчётных панелей, БНТУ, валидация, устаревание результата,
-сохранение ввода, экспорт, навигация и ширины 320/390/768 px.
-Скриншот: `docs/android-filter.png`. Физический телефон и Android-эмулятор
-не использовались; проверка системного диалога сохранения на устройстве
-остаётся отдельной проверкой.
+Проверяются 1161 расчётный сценарий с эталонными значениями исходной
+Python-версии, отчёт, активные поля и обработка ошибок ввода. Относительный
+допуск сравнения — 1e-10. Тест интерфейса проверяет пять расчётных панелей,
+БНТУ, валидацию, устаревание результата, сохранение ввода, экспорт TXT
+и ширины 320/390/768 px. Системный диалог сохранения TXT проверяется
+отдельно на Android-устройстве или эмуляторе.
 
 ## Структура и безопасность
 
