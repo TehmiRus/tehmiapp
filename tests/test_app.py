@@ -144,9 +144,9 @@ class ApplicationTests(unittest.TestCase):
             page.locator('button[type="submit"]').click()
             result.wait_for(state="visible")
 
-        fill(specific_load="1", flow="6000", sections="3", offline="1",
-             bag_diameter="200", bag_length="2", margin="0")
+        fill(specific_load="1", flow="6000", sections="3")
         page.locator("[name=cleaning]").select_option("С отключением секций")
+        fill(offline="1", bag_diameter="200", bag_length="2", margin="0")
         calculate()
         self.assertEqual(page.locator(".metric b").first.text_content(), "120")
 
