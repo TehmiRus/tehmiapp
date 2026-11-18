@@ -126,7 +126,11 @@ class ApplicationTests(unittest.TestCase):
     def test_mobile_ui(self):
         page = self.page
         errors = []
-        page.on("pageerror", errors.append)
+
+        def record_page_error(error):
+            errors.append(str(error))
+
+        page.on("pageerror", record_page_error)
         page.reload()
         result = page.locator("#result")
         report = page.locator("#report")
