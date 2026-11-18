@@ -24,12 +24,15 @@ jobs:
       - run: python -m playwright install chromium
       - name: Test Android assets
         run: |
-          python -X utf8 tests/test_app.py 2>&1 | Tee-Object tests.log
+          $env:PYTHONUTF8 = '1'
+          cmd /d /c 'python tests/test_app.py > tests.log 2>&1'
           $testExit = $LASTEXITCODE
-          '### Android asset tests' | Add-Content $env:GITHUB_STEP_SUMMARY
-          '```text' | Add-Content $env:GITHUB_STEP_SUMMARY
-          Get-Content tests.log -Encoding utf8 | Add-Content $env:GITHUB_STEP_SUMMARY
-          '```' | Add-Content $env:GITHUB_STEP_SUMMARY
+          $testOutput = @(Get-Content tests.log -Encoding utf8)
+          $testOutput | Write-Output
+          if ($testExit -ne 0) {
+            $details = ($testOutput | Select-Object -First 45) -join '%0A'
+            Write-Output "::error::$details"
+          }
           exit $testExit
       - name: Build APK and run Android Lint
         if: ${{ !cancelled() }}
